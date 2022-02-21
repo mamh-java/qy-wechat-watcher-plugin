@@ -11,7 +11,7 @@
     <artifactId>qy-wechat-watcher-plugin</artifactId>
     <version>1.17-SNAPSHOT</version>
     <packaging>hpi</packaging>
-    <name>QyWechat Watcher Plugin</name>
+    <name>Qy Wechat Watcher Plugin</name>
     <description>This plugin notifies configured qywechat recipients on various events.</description>
     <url>https://github.com/mamh-java/qy-wechat-watcher-plugin</url>
 
