@@ -64,10 +64,8 @@ public class NodeAwailabilityListener extends RunListener<Run<?, ?>> {
 
         if (!isIdle(computer)) return;
 
-        String address = user.getDisplayName();
-
         final String subject = "Jenkins computer '" + computer.getDisplayName() + "' you have put offline is no longer occupied";
-        getNotification().subject(subject).url(computer.getUrl()).recipients(address).initiator(user).send(r);
+        getNotification().subject(subject).url(computer.getUrl()).initiator(user).send(r);
     }
 
     private @CheckForNull
