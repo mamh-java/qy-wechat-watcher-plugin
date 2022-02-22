@@ -16,15 +16,21 @@ import java.util.logging.Logger;
 public class WatcherJobProperty extends JobProperty<Job<?, ?>> {
     private static final Logger LOGGER = Logger.getLogger(WatcherJobProperty.class.getName());
 
-    private final String watcherAddresses;
+    private final String webhookurl;
+    private final String mention;
 
     @DataBoundConstructor
-    public WatcherJobProperty(final String watcherAddresses) {
-        this.watcherAddresses = watcherAddresses;
+    public WatcherJobProperty(final String webhookurl, final String mention) {
+        this.webhookurl = webhookurl;
+        this.mention = mention;
     }
 
-    public String getWatcherAddresses() {
-        return watcherAddresses;
+    public String getWebhookurl() {
+        return webhookurl;
+    }
+
+    public String getMention() {
+        return mention;
     }
 
     @Extension
@@ -37,18 +43,26 @@ public class WatcherJobProperty extends JobProperty<Job<?, ?>> {
 
         @Override
         public JobProperty<?> newInstance(final StaplerRequest req, final JSONObject formData) throws FormException {
-
             final JSONObject watcherData = formData.getJSONObject("watcherEnabled");
-            if (watcherData.isNullObject()) return null;
+            if (watcherData.isNullObject())
+                return null;
 
-            final String addresses = watcherData.getString("watcherAddresses");
-            if (addresses == null || addresses.isEmpty()) return null;
+            final String addresses = watcherData.getString("webhookurl");
+            final String mention = watcherData.getString("mention");
 
-            return new WatcherJobProperty(addresses);
+            if (addresses == null || addresses.isEmpty())
+                return null;
+
+            return new WatcherJobProperty(addresses, mention);
         }
 
-        public FormValidation doCheckWatcherAddresses(@QueryParameter String value) {
-            LOGGER.info("doCheckWatcherAddresses: " + value);
+        public FormValidation doCheckWebhookurl(@QueryParameter String value) {
+            LOGGER.info("doCheckWebhookurl: " + value);
+            return FormValidation.ok();
+        }
+
+        public FormValidation doCheckMention(@QueryParameter String value) {
+            LOGGER.info("doCheckMention: " + value);
             return FormValidation.ok();
         }
 
