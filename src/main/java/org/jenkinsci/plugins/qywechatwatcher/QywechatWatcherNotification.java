@@ -22,6 +22,7 @@ public abstract class QywechatWatcherNotification {
     final private String recipients;
 
     final private String url;
+    final private String webhookurl;
     final private String resourceName;
     final private User initiator;
 
@@ -33,6 +34,7 @@ public abstract class QywechatWatcherNotification {
         this.subject = builder.subject;
         this.body = builder.body;
         this.recipients = builder.recipients;
+        this.webhookurl = builder.webhookurl;
         this.url = builder.url;
         this.resourceName = builder.resourceName;
         this.initiator = builder.initiator;
@@ -50,6 +52,10 @@ public abstract class QywechatWatcherNotification {
 
     public String getRecipients() {
         return recipients;
+    }
+
+    public String getWebhookurl() {
+        return webhookurl;
     }
 
     public String getUrl() {
@@ -118,9 +124,10 @@ public abstract class QywechatWatcherNotification {
 
         private String subject = "";
         private String body = "";
-        private String recipients;
+        private String recipients; //收件人
 
         private String url = "";
+        private String webhookurl = "";
         private String resourceName = "";
         private User initiator;
 
@@ -147,6 +154,11 @@ public abstract class QywechatWatcherNotification {
 
         protected Builder url(final String url) {
             this.url = url;
+            return this;
+        }
+
+        protected Builder webhookurl(final String webhookurl) {
+            this.webhookurl = webhookurl;
             return this;
         }
 
