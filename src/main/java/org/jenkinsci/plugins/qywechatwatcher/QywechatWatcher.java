@@ -69,8 +69,9 @@ public class QywechatWatcher {
 
 
     public String send(final QywechatWatcherNotification notification) throws MessagingException, AddressException {
-        if (!notification.shouldNotify()) return null;
-        String webhookurl = notification.getRecipients();
+        //if (!notification.shouldNotify()) return null; 这里判断 收件人 是否是空了，是空就不通知了。
+        String webhookurl = notification.getWebhookurl();
+        String mention = notification.getRecipients();
         String[] urls;
         if (webhookurl.contains(",")) {
             urls = webhookurl.split(",");
