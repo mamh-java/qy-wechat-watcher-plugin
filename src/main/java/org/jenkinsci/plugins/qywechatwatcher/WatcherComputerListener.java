@@ -12,9 +12,12 @@ import hudson.slaves.OfflineCause;
 import hudson.util.DescribableList;
 import jenkins.model.Jenkins;
 
+import java.util.logging.Logger;
+
 
 @Extension
 public class WatcherComputerListener extends ComputerListener {
+    private static final Logger LOGGER = Logger.getLogger(WatcherComputerListener.class.getName());
 
     private final QywechatWatcher qywechat;
     private final String jenkinsRootUrl;
@@ -97,21 +100,19 @@ public class WatcherComputerListener extends ComputerListener {
 
             @Override
             public void send(final Object o) {
-
                 final Computer computer = (Computer) o;
-
                 final WatcherNodeProperty property = getWatcherNodeProperty(computer);
 
                 if (property != null) {
-
-                    final String recipients = this.online
-                            ? property.getOnlineAddresses()
-                            : property.getOfflineAddresses();
-                    this.recipients(recipients);
+                    if(!online) {
+                        LOGGER.info("online status is: " + online); // 只有online是false的时候才去 @ 人
+                        this.recipients(property.getMention());
+                    }
+                    this.webhookurl(property.getWebhookurl());
                 }
 
-                url(computer.getUrl());
-                name(computer.getDisplayName());
+                this.url(computer.getUrl());
+                this.name(computer.getDisplayName());
 
                 new Notification(this).send();
             }
