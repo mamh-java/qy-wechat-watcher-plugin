@@ -16,55 +16,53 @@ import java.util.logging.Logger;
 public class WatcherNodeProperty extends NodeProperty<Node> {
     private static final Logger LOGGER = Logger.getLogger(WatcherNodeProperty.class.getName());
 
-    private final String onlineAddresses;
-    private final String offlineAddresses;
+    private final String webhookurl;
+    private final String mention;
 
     @DataBoundConstructor
-    public WatcherNodeProperty(final String onlineAddresses, final String offlineAddresses) {
-        this.onlineAddresses = onlineAddresses;
-        this.offlineAddresses = offlineAddresses;
+    public WatcherNodeProperty(final String webhookurl, final String mention) {
+        this.webhookurl = webhookurl;
+        this.mention = mention;
     }
 
-    public String getOnlineAddresses() {
-        return onlineAddresses;
+    public String getWebhookurl() {
+        return webhookurl;
     }
 
-    public String getOfflineAddresses() {
-        return offlineAddresses;
+    public String getMention() {
+        return mention;
     }
 
     @Extension
     public static class DescriptorImpl extends NodePropertyDescriptor {
 
-        public static final String OFFLINE_ADDRESSES = "offlineAddresses";
-        public static final String ONLINE_ADDRESSES = "onlineAddresses";
-
         @Override
         public boolean isApplicable(Class<? extends Node> nodeType) {
-
             return true;
         }
 
         @Override
         public NodeProperty<?> newInstance(final StaplerRequest req, final JSONObject formData) throws FormException {
-            final String onlineAddresses = formData.getString(ONLINE_ADDRESSES);
-            final String offlineAddresses = formData.getString(OFFLINE_ADDRESSES);
+            final String webhookurl = formData.getString("webhookurl");
+            final String mention = formData.getString("mention");
+            LOGGER.info("newInstance: webhookurl=" + webhookurl);
+            LOGGER.info("newInstance: mention=" + mention);
 
-            assert onlineAddresses != null;
-            assert offlineAddresses != null;
+            assert webhookurl != null;
+            assert mention != null;
 
-            if (onlineAddresses.isEmpty() && offlineAddresses.isEmpty()) return null;
+            if (webhookurl.isEmpty() && mention.isEmpty()) return null;
 
-            return new WatcherNodeProperty(onlineAddresses, offlineAddresses);
+            return new WatcherNodeProperty(webhookurl, mention);
         }
 
-        public FormValidation doCheckOnlineAddresses(@QueryParameter String value) {
-            LOGGER.info("doCheckOnlineAddresses: " + value);
+        public FormValidation doCheckWebhookurl(@QueryParameter String value) {
+            LOGGER.info("doCheckWebhookurl: " + value);
             return FormValidation.ok();
         }
 
-        public FormValidation doCheckOfflineAddresses(@QueryParameter String value) {
-            LOGGER.info("doCheckOfflineAddresses: " + value);
+        public FormValidation doCheckMention(@QueryParameter String value) {
+            LOGGER.info("doCheckMention: " + value);
             return FormValidation.ok();
         }
 
