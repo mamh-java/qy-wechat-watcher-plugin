@@ -103,13 +103,14 @@ public class WatcherComputerListener extends ComputerListener {
                 final Computer computer = (Computer) o;
                 final WatcherNodeProperty property = getWatcherNodeProperty(computer);
 
-                if (property != null) {
-                    if(!online) {
-                        LOGGER.info("online status is: " + online); // 只有online是false的时候才去 @ 人
-                        this.recipients(property.getMention());
-                    }
-                    this.webhookurl(property.getWebhookurl());
+                if (property == null) { //只有这里获取 到的 prop 不是null 才去发送通知
+                    return;
                 }
+                if (!online) {
+                    LOGGER.info("online status is: " + online); // 只有online是false的时候才去 @ 人
+                    this.recipients(property.getMention());
+                }
+                this.webhookurl(property.getWebhookurl());
 
                 this.url(computer.getUrl());
                 this.name(computer.getDisplayName());

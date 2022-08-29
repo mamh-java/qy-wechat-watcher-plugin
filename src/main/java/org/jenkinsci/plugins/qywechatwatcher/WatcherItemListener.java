@@ -98,10 +98,11 @@ public class WatcherItemListener extends ItemListener {
 
                 final WatcherJobProperty property = job.getProperty(WatcherJobProperty.class);
 
-                if (property != null) {
-                    this.recipients(property.getMention());
-                    this.webhookurl(property.getWebhookurl());
+                if (property == null) {
+                    return;
                 }
+                this.recipients(property.getMention());
+                this.webhookurl(property.getWebhookurl());
 
                 Stack<String> stack = new Stack<String>();
                 stack.push(job.getShortUrl());
