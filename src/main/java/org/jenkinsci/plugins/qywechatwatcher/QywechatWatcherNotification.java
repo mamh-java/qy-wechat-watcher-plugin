@@ -15,7 +15,7 @@ public abstract class QywechatWatcherNotification {
 
     private static final Logger LOGGER = Logger.getLogger(QywechatWatcherNotification.class.getName());
 
-    private static final String WATCHER_PLUGIN = "[qy-wechat-watcher-plugin]: ";
+    private static final String WATCHER_PLUGIN = "qy-wechat-watcher-plugin: ";
 
     final private String subject;
     final private String body;
