@@ -8,7 +8,7 @@
 
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>qy-wechat-watcher-plugin</artifactId>
-    <version>1.19</version>
+    <version>1.20-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>Qy Wechat Watcher Plugin</name>
     <description>This plugin notifies configured qywechat recipients on various events.</description>
@@ -18,7 +18,7 @@
         <connection>scm:git:https://github.com/mamh-java/qy-wechat-watcher-plugin.git</connection>
         <developerConnection>scm:git:https://github.com/mamh-java/qy-wechat-watcher-plugin.git</developerConnection>
         <url>https://github.com/mamh-java/qy-wechat-watcher-plugin</url>
-        <tag>qy-wechat-watcher-plugin-1.19</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <repositories>
